@@ -1,7 +1,7 @@
 
 --After Executing the Procedure we can execute the saved procedure by the command of EXEC bronze.load_bronze
 
-
+--EXEC bronze.load_bronze
   
 CREATE OR ALTER PROCEDURE bronze.load_bronze AS
 BEGIN
@@ -22,7 +22,7 @@ BEGIN
 		PRINT 'Inserting Data Into: Cuomers Table'
 		PRINT '-------------------------------------------------'
 		BULK INSERT bronze.customers 
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\customers.csv' 
+		FROM 'C:\Users\vivek\Desktop\E-commerce Intelligence & Predictive Analytics Platform\raw\customers.csv' 
 		WITH (
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -42,7 +42,7 @@ BEGIN
 		PRINT 'Inserting Data Into: order_items Table'
 		PRINT '-------------------------------------------------'
 		BULK INSERT bronze.order_items 
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\order_items.csv'
+		FROM 'C:\Users\vivek\Desktop\E-commerce Intelligence & Predictive Analytics Platform\raw\order_items.csv'
 		WITH(
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -63,7 +63,7 @@ BEGIN
 		PRINT 'Inserting Data Into: Orders Table'
 		PRINT '-------------------------------------------------'
 		BULK INSERT bronze.orders 
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\orders.csv'
+		FROM 'C:\Users\vivek\Desktop\E-commerce Intelligence & Predictive Analytics Platform\raw\orders.csv'
 		WITH(
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -76,26 +76,6 @@ BEGIN
 
 		SET @start_time = GETDATE()
 		PRINT '-------------------------------------------------'
-		PRINT 'Truncating Table: Order Items Enriched'
-		PRINT '-------------------------------------------------'
-		TRUNCATE TABLE bronze.order_items_enriched;
-		PRINT '-------------------------------------------------'
-		PRINT 'Inserting Data Into: Order Items Enriched'
-		PRINT '-------------------------------------------------'
-		BULK INSERT bronze.order_items_enriched
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\seller_side_dataset\order_items_enriched.csv'
-		WITH ( 
-			FIRSTROW = 2,
-			FIELDTERMINATOR = ',',
-			FIELDQUOTE = '"',
-			ROWTERMINATOR = '0x0a',
-			TABLOCK
-		)
-		SET @end_time = GETDATE()
-		PRINT '>>LOAD DURATION: '+ CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + 'seconds'
-
-		SET @start_time = GETDATE()
-		PRINT '-------------------------------------------------'
 		PRINT 'Truncating Table: Products'
 		PRINT '-------------------------------------------------'
 		TRUNCATE TABLE bronze.products;
@@ -103,7 +83,7 @@ BEGIN
 		PRINT 'Inserting Data Into: Products'
 		PRINT '-------------------------------------------------'
 		BULK INSERT bronze.products
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\products.csv'
+		FROM 'C:\Users\vivek\Desktop\E-commerce Intelligence & Predictive Analytics Platform\raw\products.csv'
 		WITH(
 			FIRSTROW = 2,
 			FIELDTERMINATOR = ',',
@@ -111,89 +91,7 @@ BEGIN
 			ROWTERMINATOR = '0x0a',
 			TABLOCK
 		)
-		SET @end_time = GETDATE()
-		PRINT '>>LOAD DURATION: '+ CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + 'seconds'
-
-		SET @start_time = GETDATE()
-		PRINT '-------------------------------------------------'
-		PRINT 'Truncating Table: Reviews'
-		PRINT '-------------------------------------------------'
-		TRUNCATE TABLE bronze.reviews;
-		PRINT '-------------------------------------------------'
-		PRINT 'Inserting Data Into: Reviews'
-		PRINT '-------------------------------------------------'
-		BULK INSERT bronze.reviews
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\seller_side_dataset\seller_reviews.csv'
-		WITH (
-			FIRSTROW = 2,
-			FIELDTERMINATOR = ',',
-			FIELDQUOTE = '"',
-			ROWTERMINATOR = '0x0a',
-			TABLOCK
-		)
-		SET @end_time = GETDATE()
-		PRINT '>>LOAD DURATION: ' + CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + 'seconds'
-
-		SET @start_time = GETDATE()
-		PRINT '-------------------------------------------------'
-		PRINT 'Truncating Table: Seller'
-		PRINT '-------------------------------------------------'
-		TRUNCATE TABLE bronze.seller;
-		PRINT '-------------------------------------------------'
-		PRINT 'Inserting Data Into: Seller'
-		PRINT '-------------------------------------------------'
-		BULK INSERT bronze.seller
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\seller_side_dataset\sellers.csv'
-		WITH ( 
-			FIRSTROW = 2,
-			FIELDTERMINATOR = ',',
-			FIELDQUOTE = '"',
-			ROWTERMINATOR = '0x0a',
-			TABLOCK
-		)
-		SET @end_time = GETDATE()
-		PRINT '>>LOAD DURATION: ' + CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + 'seconds'
-
-		SET @start_time =GETDATE()
-		PRINT '-------------------------------------------------'
-		PRINT 'Truncating Table: Seller Listings'
-		PRINT '-------------------------------------------------'
-		TRUNCATE TABLE bronze.seller_listings;
-		PRINT '-------------------------------------------------'
-		PRINT 'Inserting Data Into: Seller Listings'
-		PRINT '-------------------------------------------------'
-		BULK INSERT bronze.seller_listings
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\seller_side_dataset\seller_listings.csv'
-		WITH (
-			FIRSTROW = 2,
-			FIELDTERMINATOR = ',',
-			FIELDQUOTE = '"',
-			ROWTERMINATOR = '0x0a',
-			TABLOCK
-		)
-		SET @end_time = GETDATE()
-		PRINT '>>LOAD DURATION: ' + CAST(DATEDIFF(second,@start_time,@end_time)AS NVARCHAR) + 'seconds'
-
-		SET @start_time = GETDATE()
-		PRINT '-------------------------------------------------'
-		PRINT 'Truncating Table: Shipments'
-		PRINT '-------------------------------------------------'
-		TRUNCATE TABLE bronze.shipments;
-		PRINT '-------------------------------------------------'
-		PRINT 'Inserting Data Into: Shipments'
-		PRINT '-------------------------------------------------'
-		BULK INSERT bronze.shipments
-		FROM 'C:\Users\vivek\Downloads\ecommerce-sales-analysis-datasets\ecommerce-sales-analysis\seller_side_dataset\shipments.csv'
-		WITH (
-			FIRSTROW = 2,
-			FIELDTERMINATOR = ',',
-			FIELDQUOTE = '"',
-			ROWTERMINATOR = '0x0a',
-			TABLOCK
-		)
-		SET @end_time = GETDATE()
-		PRINT '>>LOAD DURATION: ' + CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + 'seconds'
-
+		
 		SET @batch_end_time = GETDATE()
 		PRINT '>>LOAD DURATION: ' + CAST(DATEDIFF(second,@batch_start_time,@batch_end_time) AS NVARCHAR) + 'seconds'
 
