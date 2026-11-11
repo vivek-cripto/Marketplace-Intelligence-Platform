@@ -91,6 +91,8 @@ BEGIN
 			ROWTERMINATOR = '0x0a',
 			TABLOCK
 		)
+		SET @end_time = GETDATE()
+		PRINT '>>LOAD DURATION: ' + CAST(DATEDIFF(second,@start_time,@end_time) AS NVARCHAR) + 'seconds'
 		
 		SET @batch_end_time = GETDATE()
 		PRINT '>>LOAD DURATION: ' + CAST(DATEDIFF(second,@batch_start_time,@batch_end_time) AS NVARCHAR) + 'seconds'
