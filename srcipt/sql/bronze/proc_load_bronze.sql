@@ -19,7 +19,7 @@ BEGIN
 		PRINT '-------------------------------------------------'
 		TRUNCATE TABLE bronze.customers;
 		PRINT '-------------------------------------------------'
-		PRINT 'Inserting Data Into: Cuomers Table'
+		PRINT 'Inserting Data Into: Customers Table'
 		PRINT '-------------------------------------------------'
 		BULK INSERT bronze.customers 
 		FROM 'C:\Users\vivek\Desktop\E-commerce Intelligence & Predictive Analytics Platform\raw\customers.csv' 
